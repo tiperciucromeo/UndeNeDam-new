@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "974706380489",
+    "firebase_url": "https://undenedam.firebaseio.com",
+    "project_id": "undenedam",
+    "storage_bucket": "undenedam.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:974706380489:android:5c34c2dab4524210",
+        "android_client_info": {
+          "package_name": "com.romeotutorial.undenedam"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "974706380489-d3grgkhkqdhmb5egop8ur5u5pg0rpupp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.romeotutorial.undenedam",
+            "certificate_hash": "cf505753a6be85afac6ddde7b8be19a49a00d137"
+          }
+        },
+        {
+          "client_id": "974706380489-sprsq5kucgjeh1h596ufb2upe5antm0s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0PnNH-LM1_XB_kU3lU-8a-xWzzFnejvs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "974706380489-sprsq5kucgjeh1h596ufb2upe5antm0s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
