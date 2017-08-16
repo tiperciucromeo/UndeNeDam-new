@@ -18,14 +18,13 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.util.List;
 
 
 public class FragmentPozeRuteVremePartii extends Fragment {
@@ -69,39 +68,36 @@ public class FragmentPozeRuteVremePartii extends Fragment {
             pozeRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {
-                    };
-                    ArrayList<String> yourStringArray = dataSnapshot.getValue(t);
-                    FirebaseStorage storage = FirebaseStorage.getInstance();
-                    for (String nume : yourStringArray) {
+                    List<String> pozeList = (List<String>)dataSnapshot.getValue();
 
-                        StorageReference poza1 = storage.getReference().child(nume);
+                    FirebaseStorage storage = FirebaseStorage.getInstance();
+                    for (String nume : pozeList) {
+                        StorageReference pozaRef = storage.getReference().child(nume);
+
                         try {
+                            Log.d("DEBUG", "creating temp file");
                             localFile = File.createTempFile("images", "jpg");
                         } catch (Exception e) {
                             Log.d("nu,nu","nu funtioneaza");
                         }
-                        poza1.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+
+                        Log.d("DEBUG", "downloading file from firebase to temp files");
+                        pozaRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                             @Override
                             public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                                // Local temp file has been created
+                                // Vezi aici cum pui ca sa fie galerie de poze
+                                Glide.with(getContext()).load(localFile).into(imagine);
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception exception) {
-                                // Handle any errors
+                                Log.d("DEBUG", "failed to download img from firebase storage: " + exception.getMessage());
                             }
                         });
-                        //NU STIU CUM SA SETEZ IMAGINEA!!!! poza1
-                        Glide.with(getContext())
-                                .load(poza1)
-                                .into(imagine);
 
-}
-
-
-
+                        }
                 }
+
                 @Override
                 public void onCancelled(DatabaseError error) {
                     Log.w("nu nu nu", "Failed to read value.", error.toException());
@@ -111,6 +107,50 @@ public class FragmentPozeRuteVremePartii extends Fragment {
 
         } else if (message.equals(2)) {
             textView.setText("Rute");
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference ruteRef = database.getReference("Partii").child(this.numePartie).child("Rute");
+
+            ruteRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    List<String> ruteList = (List<String>)dataSnapshot.getValue();
+
+                    FirebaseStorage storage = FirebaseStorage.getInstance();
+                    for (String nume : ruteList) {
+                        StorageReference ruteRef = storage.getReference().child(nume);
+
+                        try {
+                            Log.d("DEBUG", "creating temp file");
+                            localFile = File.createTempFile("images", "jpg");
+                        } catch (Exception e) {
+                            Log.d("nu,nu","nu funtioneaza");
+                        }
+
+                        Log.d("DEBUG", "downloading file from firebase to temp files");
+                        ruteRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+
+                                // Vezi aici cum pui ca sa fie galerie de poze
+                                Glide.with(getContext()).load(localFile).into(imagine);
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception exception) {
+                                Log.d("DEBUG", "failed to download img from firebase storage: " + exception.getMessage());
+                            }
+                        });
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError error) {
+                    Log.w("nu nu nu", "Failed to read value.", error.toException());
+                }
+            });
+
+
         } else if (message.equals(3)) {
             textView.setText("Vreme");
         } else if (message.equals(4)) {
