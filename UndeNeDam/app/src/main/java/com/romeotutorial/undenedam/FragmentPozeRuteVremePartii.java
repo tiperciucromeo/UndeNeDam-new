@@ -152,6 +152,10 @@ public class FragmentPozeRuteVremePartii extends Fragment {
 
 
         } else if (message.equals(3)) {
+
+
+
+
             textView.setText("Vreme");
         } else if (message.equals(4)) {
             textView.setText("Preturi");
