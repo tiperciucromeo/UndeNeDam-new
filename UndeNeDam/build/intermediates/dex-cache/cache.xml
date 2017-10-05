@@ -12,21 +12,12 @@
     </item>
     <item
         is-multidex="true"
-        jar="/Users/romeotiperciuc/.android/build-cache/7fdad3170e43465857882a1825c06f84d0f3b803/output/jars/classes.jar"
+        jar="/Users/romeotiperciuc/Desktop/Android Curs/UndeNeDam-new/UndeNeDam/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
         revision="26.0.0"
-        sha1="4802b21cc23549f7eba5edb802241091ad998b35">
-        <dex dex="/Users/romeotiperciuc/Desktop/UndeNeDam/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_93cce14f59a2f4245c36550222f626fd0f969ef0/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/romeotiperciuc/.android/build-cache/1a3ad6b064bbe8c90851b27f4037e65cd648d51f/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="26.0.0"
-        sha1="4262bcd49b19d558c241bf8c68470fcc6fa1ac84">
-        <dex dex="/Users/romeotiperciuc/Desktop/UndeNeDam/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_9d75c910648f1d6d0e8e0c0f784a836fd2dbd575/classes.dex" />
+        sha1="e13f005cf6442fc8497edd6b22c553436de2088d">
+        <dex dex="/Users/romeotiperciuc/Desktop/Android Curs/UndeNeDam-new/UndeNeDam/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_ada22a1e1cc605ea130911971f3fb3dd5f420aab/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -39,30 +30,12 @@
     </item>
     <item
         is-multidex="true"
-        jar="/Users/romeotiperciuc/Desktop/UndeNeDam/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="26.0.0"
-        sha1="00d846079d0c0950f881df71c06c6c641f748877">
-        <dex dex="/Users/romeotiperciuc/Desktop/UndeNeDam/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_b12e31ae89c9f807651991bc6c81ecc78f5c6b8f/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/romeotiperciuc/.android/build-cache/79d1c5e7430c56884ae129e381cdc5ea64b2ef30/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="26.0.0"
-        sha1="db939a450ea2a721db84e774bf108e20c44a8a1d">
-        <dex dex="/Users/romeotiperciuc/Desktop/UndeNeDam/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_0a70673136fe22a2c98989fb97d73b9c5f2c0aa2/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/romeotiperciuc/Desktop/UndeNeDam/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jar="/Users/romeotiperciuc/Desktop/Android Curs/UndeNeDam-new/UndeNeDam/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
         jumboMode="true"
         optimize="true"
         revision="26.0.0"
         sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
-        <dex dex="/Users/romeotiperciuc/Desktop/UndeNeDam/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_72164b4e96a52ab0b7f78103759c2a005b37b936/classes.dex" />
+        <dex dex="/Users/romeotiperciuc/Desktop/Android Curs/UndeNeDam-new/UndeNeDam/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_69cb7d189d5ea6fc6de51d07d94c72e0e4bcea03/classes.dex" />
     </item>
 
 </items>

@@ -104,7 +104,6 @@ public class FragmentPozeRuteVremePartii extends Fragment {
                 }
             });
 
-
         } else if (message.equals(2)) {
             textView.setText("Rute");
             FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -152,10 +151,26 @@ public class FragmentPozeRuteVremePartii extends Fragment {
 
 
         } else if (message.equals(3)) {
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
 
+                    //OBTIN O REFERENTA IN BAZA DE DATE LA PARTIA CU NUMELE CORESPUNZATOR
+                    DatabaseReference partieRef = database.getReference("Partii").child(this.numePartie);
 
+                    partieRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            double latitudine = (double) dataSnapshot.child("Lat").getValue();
+                            double longitudine = (double) dataSnapshot.child("Long").getValue();
 
+                            (new Thread(new WeatherThread(longitudine, latitudine))).start();
+                        }
 
+                        @Override
+                        public void onCancelled(DatabaseError error) {
+                            Log.w("nu nu nu", "Failed to read value.", error.toException());
+                        }
+
+                    });
             textView.setText("Vreme");
         } else if (message.equals(4)) {
             textView.setText("Preturi");
