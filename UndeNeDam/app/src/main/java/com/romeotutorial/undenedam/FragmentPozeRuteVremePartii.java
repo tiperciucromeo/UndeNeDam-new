@@ -33,6 +33,9 @@ public class FragmentPozeRuteVremePartii extends Fragment {
     ImageView imagine;
     private String numePartie;
 
+    private FragmentPozeRuteVremePartii fragmentRef = this;
+    private View view;
+
     public FragmentPozeRuteVremePartii() {
         // Required empty public constructor
     }
@@ -47,10 +50,10 @@ public class FragmentPozeRuteVremePartii extends Fragment {
 
         // Inflate the layout for this fragment
 
-        View view = inflater.inflate(R.layout.fragment_fragment_poze_rute_vreme_partii, container, false);
+        view = inflater.inflate(R.layout.fragment_fragment_poze_rute_vreme_partii, container, false);
 
         textView = (TextView) view.findViewById(R.id.textView);
-         imagine = (ImageView) view.findViewById(R.id.imageView);
+        imagine = (ImageView) view.findViewById(R.id.imageView);
 
         Bundle bundle = getArguments();
 
@@ -62,13 +65,13 @@ public class FragmentPozeRuteVremePartii extends Fragment {
 
         if (message.equals(1)) {
             textView.setText("Poze-Video");
-           FirebaseDatabase database = FirebaseDatabase.getInstance();
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference pozeRef = database.getReference("Partii").child(this.numePartie).child("Poze-Video");
 
             pozeRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    List<String> pozeList = (List<String>)dataSnapshot.getValue();
+                    List<String> pozeList = (List<String>) dataSnapshot.getValue();
 
                     FirebaseStorage storage = FirebaseStorage.getInstance();
                     for (String nume : pozeList) {
@@ -78,7 +81,7 @@ public class FragmentPozeRuteVremePartii extends Fragment {
                             Log.d("DEBUG", "creating temp file");
                             localFile = File.createTempFile("images", "jpg");
                         } catch (Exception e) {
-                            Log.d("nu,nu","nu funtioneaza");
+                            Log.d("nu,nu", "nu funtioneaza");
                         }
 
                         Log.d("DEBUG", "downloading file from firebase to temp files");
@@ -95,7 +98,7 @@ public class FragmentPozeRuteVremePartii extends Fragment {
                             }
                         });
 
-                        }
+                    }
                 }
 
                 @Override
@@ -112,7 +115,7 @@ public class FragmentPozeRuteVremePartii extends Fragment {
             ruteRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    List<String> ruteList = (List<String>)dataSnapshot.getValue();
+                    List<String> ruteList = (List<String>) dataSnapshot.getValue();
 
                     FirebaseStorage storage = FirebaseStorage.getInstance();
                     for (String nume : ruteList) {
@@ -122,7 +125,7 @@ public class FragmentPozeRuteVremePartii extends Fragment {
                             Log.d("DEBUG", "creating temp file");
                             localFile = File.createTempFile("images", "jpg");
                         } catch (Exception e) {
-                            Log.d("nu,nu","nu funtioneaza");
+                            Log.d("nu,nu", "nu funtioneaza");
                         }
 
                         Log.d("DEBUG", "downloading file from firebase to temp files");
@@ -148,35 +151,47 @@ public class FragmentPozeRuteVremePartii extends Fragment {
                     Log.w("nu nu nu", "Failed to read value.", error.toException());
                 }
             });
-
-
         } else if (message.equals(3)) {
-                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-                    //OBTIN O REFERENTA IN BAZA DE DATE LA PARTIA CU NUMELE CORESPUNZATOR
-                    DatabaseReference partieRef = database.getReference("Partii").child(this.numePartie);
+            //OBTIN O REFERENTA IN BAZA DE DATE LA PARTIA CU NUMELE CORESPUNZATOR
+            DatabaseReference partieRef = database.getReference("Partii").child(this.numePartie);
 
-                    partieRef.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            double latitudine = (double) dataSnapshot.child("Lat").getValue();
-                            double longitudine = (double) dataSnapshot.child("Long").getValue();
+            partieRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    double latitudine = (double) dataSnapshot.child("Lat").getValue();
+                    double longitudine = (double) dataSnapshot.child("Long").getValue();
 
-                            (new Thread(new WeatherThread(longitudine, latitudine))).start();
-                        }
+                    (new Thread(new WeatherThread(fragmentRef, longitudine, latitudine))).start();
+                }
 
-                        @Override
-                        public void onCancelled(DatabaseError error) {
-                            Log.w("nu nu nu", "Failed to read value.", error.toException());
-                        }
-
-                    });
+                @Override
+                public void onCancelled(DatabaseError error) {
+                    Log.w("nu nu nu", "Failed to read value.", error.toException());
+                }
+            });
             textView.setText("Vreme");
-        } else if (message.equals(4)) {
-            textView.setText("Preturi");
-        }
 
+        }
         return view;
     }
 
+    public void updateWeatherInfo(WeatherInfo weatherInfo) {
+        Log.i("???", weatherInfo.getHumidity());
+        ((TextView) view.findViewById(R.id.city)).setText(weatherInfo.getCity());
+        ((TextView) view.findViewById(R.id.description)).setText(weatherInfo.getDescription());
+        ((TextView) view.findViewById(R.id.temperature)).setText(weatherInfo.getTemperature());
+        ((TextView) view.findViewById(R.id.umiditate)).setText(weatherInfo.getHumidity());;
+        ((TextView) view.findViewById(R.id.presiune)).setText(weatherInfo.getPressure());;
+        ((TextView) view.findViewById(R.id.update)).setText(weatherInfo.getUpdatedOn());;
+    }
 }
+
+        //else if (message.equals(4)) {
+           // textView.setText("Poze-Video");
+
+      //  }
+
+
+

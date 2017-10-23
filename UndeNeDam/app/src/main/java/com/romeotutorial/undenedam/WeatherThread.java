@@ -19,14 +19,17 @@ import java.util.Locale;
 public class WeatherThread implements Runnable {
     private double longitudine;
     private double latitudine;
+    FragmentPozeRuteVremePartii fragment;
+
 
     private static final String OPEN_WEATHER_MAP_URL =
             "http://api.openweathermap.org/data/2.5/weather?lat=%s&lon=%s&units=metric";
     private static final String OPEN_WEATHER_MAP_API = "86959c8c1c6abc2d763601006da98745";
 
-    public WeatherThread(double longitudine, double latitudine) {
+    public WeatherThread(FragmentPozeRuteVremePartii fragment, double longitudine, double latitudine) {
         this.latitudine = latitudine;
         this.longitudine = longitudine;
+        this.fragment = fragment;
     }
 
     @Override
@@ -69,13 +72,15 @@ public class WeatherThread implements Runnable {
             String pressure = main.getString("pressure") + " hPa";
             String updatedOn = df.format(new Date(data.getLong("dt") * 1000));
 
-            Log.
-            Log.i("WEATHER DATA", city);
-            Log.i("WEATHER DATA", description);
-            Log.i("WEATHER DATA", temperature);
-            Log.i("WEATHER DATA", humidity);
-            Log.i("WEATHER DATA", pressure);
-            Log.i("WEATHER DATA", updatedOn);
+            Log.i("???", "calling updateWeather");
+            fragment.updateWeatherInfo(new WeatherInfo(city, description, temperature, humidity, pressure, updatedOn));
+
+           // Log.i("WEATHER DATA", city);
+            //Log.i("WEATHER DATA", description);
+            //Log.i("WEATHER DATA", temperature);
+            //Log.i("WEATHER DATA", humidity);
+            //Log.i("WEATHER DATA", pressure);
+            //Log.i("WEATHER DATA", updatedOn);
 //                                String iconText = setWeatherIcon(details.getInt("id"),
 //                                        json.getJSONObject("sys").getLong("sunrise") * 1000,
 //                                        json.getJSONObject("sys").getLong("sunset") * 1000);
