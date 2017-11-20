@@ -32,7 +32,7 @@
         android:layout_marginLeft="11dp"
         android:layout_marginStart="11dp"
         android:layout_marginTop="10dp"
-        android:text="1" />
+        android:text="" />
 
     <TextView
         android:id="@+id/description"
@@ -42,7 +42,7 @@
         android:layout_alignStart="@+id/city"
         android:layout_below="@+id/city"
         android:layout_marginTop="13dp"
-        android:text="2"/>
+        android:text=""/>
 
     <TextView
         android:id="@+id/temperature"
@@ -52,7 +52,7 @@
         android:layout_alignStart="@+id/description"
         android:layout_below="@+id/description"
         android:layout_marginTop="15dp"
-        android:text="3"/>
+        android:text=""/>
 
     <TextView
         android:id="@+id/umiditate"
@@ -62,7 +62,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/temperature"
         android:layout_marginBottom="71dp"
-        android:text="4"/>
+        android:text=""/>
 
     <TextView
         android:id="@+id/presiune"
@@ -72,7 +72,7 @@
         android:layout_alignStart="@+id/umiditate"
         android:layout_alignTop="@+id/umiditate"
         android:layout_marginTop="28dp"
-        android:text="5"/>
+        android:text=""/>
 
     <TextView
         android:id="@+id/update"
@@ -82,5 +82,5 @@
         android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/presiune"
         android:layout_marginBottom="11dp"
-        android:text="6"/>
+        android:text=""/>
 </RelativeLayout>

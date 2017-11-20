@@ -34,19 +34,25 @@ public class ListaPartii extends AppCompatActivity {
         partii = new ArrayList<>();
         listView = (ListView) findViewById(R.id.listView);
 
+        Log.w("DEBUGING", "onCreate ListaPartii");
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference partiiRef = database.getReference("Partii");
 
+        Log.w("DEBUGING", "database reference OK");
+
         partiiRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.e("DEBUGING", "on data change cbk");
                 partii.clear();
                 Map<String, Object> mapPartii = (Map<String, Object>) dataSnapshot.getValue();
 
                 for (Map.Entry<String, Object> entry : mapPartii.entrySet()) {
+                    Log.w("DEBUGING", "Adding partie: " + entry.getKey());
                     partii.add(entry.getKey());
                 }
+
                 reloadListaPartii();
             }
 
@@ -55,6 +61,8 @@ public class ListaPartii extends AppCompatActivity {
                 Log.w("nu nu nu", "Failed to read value.", error.toException());
             }
         });
+
+        Log.w("DEBUGING", "callbacks added to database reference");
     }
 
     public void reloadListaPartii() {

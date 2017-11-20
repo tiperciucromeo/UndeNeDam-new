@@ -174,24 +174,73 @@ public class FragmentPozeRuteVremePartii extends Fragment {
             textView.setText("Vreme");
 
         }
+        else if (message.equals(4)) {
+            textView.setText("Tarife");
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference ruteRef = database.getReference("Partii").child(this.numePartie).child("Preturi");
+
+            ruteRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    List<String> preturiList = (List<String>) dataSnapshot.getValue();
+
+                    FirebaseStorage storage = FirebaseStorage.getInstance();
+                    for (String nume : preturiList) {
+                        StorageReference preturiRef = storage.getReference().child(nume);
+
+                        try {
+                            Log.d("DEBUG", "creating temp file");
+                            localFile = File.createTempFile("images", "jpg");
+                        } catch (Exception e) {
+                            Log.d("nu,nu", "nu funtioneaza");
+                        }
+
+                        Log.d("DEBUG", "downloading file from firebase to temp files");
+                        preturiRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+
+                                // Vezi aici cum pui ca sa fie galerie de poze
+                                Glide.with(getContext()).load(localFile).into(imagine);
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception exception) {
+                                Log.d("DEBUG", "failed to download img from firebase storage: " + exception.getMessage());
+                            }
+                        });
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError error) {
+                    Log.w("nu nu nu", "Failed to read value.", error.toException());
+                }
+            });
+
+        }
         return view;
     }
 
-    public void updateWeatherInfo(WeatherInfo weatherInfo) {
-        Log.i("???", weatherInfo.getHumidity());
-        ((TextView) view.findViewById(R.id.city)).setText(weatherInfo.getCity());
-        ((TextView) view.findViewById(R.id.description)).setText(weatherInfo.getDescription());
-        ((TextView) view.findViewById(R.id.temperature)).setText(weatherInfo.getTemperature());
-        ((TextView) view.findViewById(R.id.umiditate)).setText(weatherInfo.getHumidity());;
-        ((TextView) view.findViewById(R.id.presiune)).setText(weatherInfo.getPressure());;
-        ((TextView) view.findViewById(R.id.update)).setText(weatherInfo.getUpdatedOn());;
+    public void updateWeatherInfo(final WeatherInfo weatherInfo) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                ((TextView) view.findViewById(R.id.city)).setText(weatherInfo.getCity());
+                ((TextView) view.findViewById(R.id.description)).setText(weatherInfo.getDescription());
+                ((TextView) view.findViewById(R.id.temperature)).setText(weatherInfo.getTemperature());
+                ((TextView) view.findViewById(R.id.umiditate)).setText(weatherInfo.getHumidity());
+                ;
+                ((TextView) view.findViewById(R.id.presiune)).setText(weatherInfo.getPressure());
+                ;
+                ((TextView) view.findViewById(R.id.update)).setText(weatherInfo.getUpdatedOn());
+                ;
+            }
+        });
     }
 }
-
-        //else if (message.equals(4)) {
-           // textView.setText("Poze-Video");
-
-      //  }
 
 
 
